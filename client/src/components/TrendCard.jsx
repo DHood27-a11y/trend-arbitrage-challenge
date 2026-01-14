@@ -1,4 +1,4 @@
-import React from "react";
+//This is just the template for how each trend will be displayed on the app: Title, Source, and link that will open article
 
 const TrendCard = ({ trend }) => {
   return (
