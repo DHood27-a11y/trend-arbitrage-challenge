@@ -40,13 +40,14 @@ const fetchAndSaveData = async () => {
   try {
     console.log("Collecting data.. "); //this will show when process is starting
 
-    const allTrends = [];
+    const allTrends = []; //will store all trends found in an empty array
 
-    const reddit = await getRedditTrends();
-    allTrends.push(...reddit);
+    const reddit = await getRedditTrends(); //reddit site will be visited and then using await we will wait for it to pull the top posts
+    allTrends.push(...reddit); //once posts are fond they will be added or "pushed to our new array"
     console.log(`Reddit trends found: ${reddit.length}`);
 
     const hacker = await getHackerTrends();
+
     allTrends.push(...hacker);
     console.log(`Hacker trends found: ${hacker.length}`);
 
@@ -55,35 +56,38 @@ const fetchAndSaveData = async () => {
     console.log(`Google trends found: ${google.length}`);
 
     const updatedTrends = allTrends.map((item) => {
-      const calculatedScore = calculateTrendScore(item);
+      const calculatedScore = calculateTrendScore(item); //once array is built we will map through each item one by one and run each item though scoring algorithm
 
       return {
+        //here im just attaching the new score to the item so it can be used later on down the line
         ...item,
         score: calculatedScore,
       };
     });
-    updatedTrends.sort((a, b) => b.score - a.score);
+    updatedTrends.sort((a, b) => b.score - a.score); //here the trends are being sorted through and re-sorted so that the highest scores are at the top
 
-    await Trend.deleteMany({});
+    await Trend.deleteMany({}); //the deleteMany method wull clear out old data in MongoDB so there are no duplicates
 
-    const validData = updatedTrends.filter((item) => item.title && item.url);
-    await Trend.insertMany(validData);
+    const validData = updatedTrends.filter((item) => item.title && item.url); //this will check to make sure every item in the array has a title and a link before saving
+
+    await Trend.insertMany(validData); //here the most up to date version of the array that has been properly sorted and filtered will be saved into MongoDB
 
     console.log(`Total articles saved to MongoDB: ${validData.length}`);
   } catch (error) {
-    console.error("Failed to fetch articles", error);
+    console.error("Failed to fetch articles", error); //this will make sure to give message if anything comes back wonky
   }
 };
 
 mongoose
-  .connect(process.env.MONGO_URL)
+  .connect(process.env.MONGO_URL) //this allows us to connect to the database string using the secret key given in MongoDB
   .then(() => {
     console.log("Connected to MongoDB successfully");
 
-    fetchAndSaveData();
+    fetchAndSaveData(); //once the database is up and running it will grab the latest set of data
 
     app.listen(port, () => {
+      //the server has to be listening amd turned on so the frontend can request the data
       console.log(`Server running on http://localhost:${port}/api/trends`);
     });
   })
-  .catch((error) => console.error("Failed to connect to MongoDB", error));
+  .catch((error) => console.error("Failed to connect to MongoDB", error)); //more error handling
