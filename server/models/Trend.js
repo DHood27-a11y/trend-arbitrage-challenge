@@ -26,9 +26,9 @@ const trendSchema = new Schema({
     type: String,
     required: true,
     enum: {
-      //this will restrict the results to only these 3 platforms
-      values: ["Reddit", "Google", "Hacker News"],
-      message: "{VALUE} is not one of the 3 associated platforms",
+      //this will restrict the results to only these 5 platforms
+      values: ["Reddit", "Google", "Hacker News", "GitHub", "Stack Overflow"],
+      message: "{VALUE} is not one of the 5 associated platforms",
     },
   },
   url: {

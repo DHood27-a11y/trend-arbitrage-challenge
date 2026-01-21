@@ -18,6 +18,8 @@ import { calculateTrendScore } from "./services/scoring.js";
 import { getHackerTrends } from "./services/sources/hackernews.js";
 import { getRedditTrends } from "./services/sources/reddit.js";
 import { getGoogleTrends } from "./services/sources/Google.js";
+import { getGitHubTrends } from "./services/sources/GitHub.js";
+import { getStackOverflowTrends } from "./services/sources/StackOverflow.js";
 
 // --Config--
 
@@ -55,23 +57,33 @@ const fetchAndSaveData = async () => {
     allTrends.push(...google);
     console.log(`Google trends found: ${google.length}`);
 
+    const github = await getGitHubTrends();
+    allTrends.push(...github);
+    console.log(`GitHub trends found ${github.length}`);
+
+    const stackoverflow = await getStackOverflowTrends();
+    allTrends.push(...stackoverflow);
+    console.log(`StackOverflow trends found ${stackoverflow.length}`);
+
     const updatedTrends = allTrends.map((item) => {
       const calculatedScore = calculateTrendScore(item); //once array is built we will map through each item one by one and run each item though scoring algorithm
 
       return {
         //here im just attaching the new score to the item so it can be used later on down the line
         ...item,
+        url: item.url || item.link,
         score: calculatedScore,
       };
     });
     updatedTrends.sort((a, b) => b.score - a.score); //here the trends are being sorted through and re-sorted so that the highest scores are at the top
 
+    const totalFound = updatedTrends.length;
     await Trend.deleteMany({}); //the deleteMany method wull clear out old data in MongoDB so there are no duplicates
 
     const validData = updatedTrends.filter((item) => item.title && item.url); //this will check to make sure every item in the array has a title and a link before saving
 
     await Trend.insertMany(validData); //here the most up to date version of the array that has been properly sorted and filtered will be saved into MongoDB
-
+    console.log(`Total trends found: ${totalFound}`);
     console.log(`Total articles saved to MongoDB: ${validData.length}`);
   } catch (error) {
     console.error("Failed to fetch articles", error); //this will make sure to give message if anything comes back wonky

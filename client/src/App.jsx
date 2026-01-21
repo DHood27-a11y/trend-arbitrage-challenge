@@ -71,7 +71,7 @@ function App() {
 
         <p>
           Showing {filteredTrends.length} of {trends.length} across Reddit,
-          HackerNews, and Google News
+          HackerNews, and Google News, GitHub, and Stack Overflow
         </p>
         <br></br>
 
