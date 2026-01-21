@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchTrends } from "./services/api";
 import TrendCard from "./components/TrendCard";
+import "./App.css";
 
 function App() {
   const [trends, setTrends] = useState([]); //created a use state variable that will hold data
@@ -30,7 +31,7 @@ function App() {
 
   return (
     <>
-      <div
+      <main
         style={{
           maxWidth: "800px",
           margin: "0 auto",
@@ -42,21 +43,31 @@ function App() {
         <h1>Trend Arbitrage Dashboard</h1>
 
         {/* Search input field */}
-        <div style={{ marginBottom: "20px" }}>
+        <section aria-label="Search Trends" style={{ marginBottom: "20px" }}>
           <input
-            type="text"
+            type="search"
+            aria-label="Search articles by title or source"
             placeholder="Search by title or source (e.g. 'Reddit)..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             style={{
               width: "100%",
-              padding: "12px",
-              borderRadius: "8px",
-              border: "1px solid #ccc",
-              fontSize: "16px",
+              padding: "16px 20px",
+              borderRadius: "12px",
+              border: "2px solid #e2e8f0",
+              fontSize: "18px",
+              boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+              outline: "none",
+              transition: "border-color 0.2s",
             }}
           />
-        </div>
+        </section>
+
+        {/*Trend List with Aria-Live to announce changes to blind users */}
+        <section
+          aria-live="polite"
+          style={{ display: "flex", flexDirection: "column", gap: "16px" }}
+        />
 
         <p>
           Showing {filteredTrends.length} of {trends.length} across Reddit,
@@ -76,7 +87,7 @@ function App() {
         ) : (
           <p>Loading trends from MongoDB....</p>
         )}
-      </div>
+      </main>
     </>
   );
 }
