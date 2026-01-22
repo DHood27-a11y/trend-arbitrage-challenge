@@ -105,7 +105,7 @@ I chose these sources to track a trend as it moves from "niche" to "mainstream":
 * **Design vs. Logic:** Due to time constraints, I chose to prioritize the backend logic and processing. I skipped getting deep into the CSS/visual styling and accessibility of the app to ensure the core pieces of data/logic were as close to working as possible.
 
   
-## **✨ Features I plan to add:**
+## **✨ Features I added:**
 * **Search functionality:** A search bar to filter trends by specific keywords.
 * **UI/UX Overhaul:** Adding more color depth and full accessibility support for all users.
 * **Expansion of sources:** Integrate at least 5 more data sources (Twitter, Tiktok, Pintrest, etc.)
