@@ -15,8 +15,8 @@ import trendRoutes from "./routes/trends.js";
 import { calculateTrendScore } from "./services/scoring.js";
 
 //We are importing our 3 sources so the data from them can be loaded properly
-import { getHackerTrends } from "./services/sources/hackernews.js";
-import { getRedditTrends } from "./services/sources/reddit.js";
+import { getHackerTrends } from "./services/sources/HackerNews.js";
+import { getRedditTrends } from "./services/sources/Reddit.js";
 import { getGoogleTrends } from "./services/sources/Google.js";
 import { getGitHubTrends } from "./services/sources/GitHub.js";
 import { getStackOverflowTrends } from "./services/sources/StackOverflow.js";

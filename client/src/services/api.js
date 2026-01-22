@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/api/trends"; //this is what the front end uses to request data from the backend
+const API_URL = "https://trend-arbitrage-challenge-qi50.onrender.com"; //this is what the front end uses to request data from the backend
 
 //this function is what the app will use to fetch and show the latest trends
 export const fetchTrends = async () => {
