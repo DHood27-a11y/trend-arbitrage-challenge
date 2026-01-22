@@ -10,13 +10,13 @@ This project was designed to help users find the "next big thing" by looking at 
 
 * **Framework:** React (JS)
 
-* **Deployment:** LocalHost 5173 (Dev Environment)
+* **Deployment:** Netlify: https://trend-arbitrage.netlify.app/
 
-**Server/API**
+**Backend**
 
 * **Languages:** JavaScript/Node
 * **Framework:** Express
-* **Deployment:** LocalHost 3000 (Dev Environment)
+* **Deployment:** Render: https://trend-arbitrage-challenge-qi50.onrender.com/api/trends
 
 
 **Database**
