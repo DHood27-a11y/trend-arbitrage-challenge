@@ -35,6 +35,14 @@ app.use(
   })
 ); //allows requests from diff ports
 
+app.use((req, res, next) => {
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://trend-arbitrage-challenge-qi50.onrender.com https://trend-arbitrage.netlify.app;"
+  );
+  next();
+});
+
 app.use(express.json()); //allows the server to read JSON data sent in request
 
 // --LINKING ROUTES--
