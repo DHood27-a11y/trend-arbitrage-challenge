@@ -29,7 +29,11 @@ const DB_URL = process.env.MONGO_URL;
 
 // --App.use--
 
-app.use(cors()); //allows requests from diff ports
+app.use(
+  cors({
+    origin: "https://trend-arbitrage.netlify.app/",
+  })
+); //allows requests from diff ports
 
 app.use(express.json()); //allows the server to read JSON data sent in request
 
@@ -97,9 +101,9 @@ mongoose
 
     fetchAndSaveData(); //once the database is up and running it will grab the latest set of data
 
-    app.listen(port, () => {
+    app.listen(port, "0.0.0.0", () => {
       //the server has to be listening amd turned on so the frontend can request the data
-      console.log(`Server running on http://localhost:${port}/api/trends`);
+      console.log(`Server running on Render at port ${port}`);
     });
   })
   .catch((error) => console.error("Failed to connect to MongoDB", error)); //more error handling
