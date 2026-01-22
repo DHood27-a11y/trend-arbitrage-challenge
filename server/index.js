@@ -31,7 +31,7 @@ const DB_URL = process.env.MONGO_URL;
 
 app.use(
   cors({
-    origin: "https://trend-arbitrage.netlify.app/",
+    origin: "https://trend-arbitrage.netlify.app",
   })
 ); //allows requests from diff ports
 
