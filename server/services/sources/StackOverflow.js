@@ -6,7 +6,7 @@ export const getStackOverflowTrends = async () => {
       "https://api.stackexchange.com/2.3/questions?pagesize=10&order=desc&sort=hot&site=stackoverflow"
     );
 
-    return response.data.items.map((item) => ({
+    return response.data.items.slice(0, 5).map((item) => ({
       title: item.title,
       link: item.link,
       source: "Stack Overflow",

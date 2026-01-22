@@ -66,7 +66,7 @@ const fetchAndSaveData = async () => {
     console.log(`StackOverflow trends found ${stackoverflow.length}`);
 
     const updatedTrends = allTrends.map((item) => {
-      const calculatedScore = calculateTrendScore(item); //once array is built we will map through each item one by one and run each item though scoring algorithm
+      const calculatedScore = calculateTrendScore(item, allTrends); //once array is built we will map through each item one by one and run each item though scoring algorithm
 
       return {
         //here im just attaching the new score to the item so it can be used later on down the line
